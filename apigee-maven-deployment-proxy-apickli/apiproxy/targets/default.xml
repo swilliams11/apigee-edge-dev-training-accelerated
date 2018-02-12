@@ -19,7 +19,7 @@
         <Properties/>
         <!--URL>http://httpbin.org</URL-->
         <LoadBalancer>
-          <Server name="edge-developer-training-httpbin"/>
+          <Server name="edge-developer-training-httpbin-apickli"/>
         </LoadBalancer>
     </HTTPTargetConnection>
 </TargetEndpoint>
