@@ -1,0 +1,14 @@
+[
+  {
+    "name": "developer-training-maven-deployment-apickli-app",
+    "credentials": [
+      {
+        "consumerKey": "YOUR KEY",
+        "consumerSecret":"secret",
+        "apiProducts": [
+          {"apiproduct": "developer-training-maven-deployment-apickli-product"}
+        ]
+      }
+    ]
+  }
+]

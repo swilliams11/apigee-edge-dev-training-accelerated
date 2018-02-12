@@ -1,0 +1,8 @@
+{
+	"proxy": {
+		"domain": "YOURORG-ENV.apigee.net",
+		"basepath": "/dev-training-maven-deployment-apickli/v1",
+		"product":"developer-training-maven-deployment-apickli-product",
+		"app":"developer-training-maven-deployment-apickli-app"
+	}
+}

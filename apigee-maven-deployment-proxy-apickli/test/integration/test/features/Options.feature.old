@@ -1,0 +1,12 @@
+Feature: Payment Feature
+	As an API user
+	I want the CORS headers to be returned on an OPTIONS request
+	so that my subsequent request from the web browser succeeds.
+
+	Scenario: Allow OPTIONS request for /get
+		When I request OPTIONS for /get
+		Then response code should be 200
+		And response header access-control-allow-headers should be origin, x-requested-with, accept, authorization, firebase-token, content-type
+		And response header access-control-allow-methods should be GET, PUT, POST, DELETE, PATCH, OPTIONS
+		And response header access-control-allow-origin should be \*
+		And response header access-control-max-age should be 3628800

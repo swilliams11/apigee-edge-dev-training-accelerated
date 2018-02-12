@@ -229,4 +229,99 @@ Review the following:
 * shared flow was deployed to the appropriate environment
 
 
-## Apickli testing???
+## Apickli testing
+
+Review the following:
+* apickli testing
+  * feature files
+  * fixtures folders
+  * app-keys.json and test-config.json
+
+https://github.com/apickli/apickli
+
+1. Deploy the apickli proxy
+
+```
+cd /apigee-edge-dev-training-accelerated/apigee-maven-deployment-proxy-apickli
+```
+
+Create all the apps, products, developers, etc. and deploy the proxy.
+```
+mvn install -Ptest -Dusername=$ae_username -Dpassword=$ae_password \
+                    -Dorg=$ae_org -Dapigee.config.options=create \
+                    -Doptions=validate
+```
+
+You should see something like:
+
+```json
+{
+  "appId" : "cbe9b3fe-22c7-414b-8185-102ef5c3f144",
+  "attributes" : [ ],
+  "callbackUrl" : "",
+  "createdAt" : 1518459781095,
+  "createdBy" : "user@email.com",
+  "credentials" : [ {
+    "apiProducts" : [ {
+      "apiproduct" : "developer-training-maven-deployment-apickli-product",
+      "status" : "approved"
+    } ],
+    "attributes" : [ ],
+    "consumerKey" : "YOUR KEY",
+    "consumerSecret" : "YOUR SECRET",
+    "expiresAt" : -1,
+    "issuedAt" : 1518459781278,
+    "scopes" : [ ],
+    "status" : "approved"
+  } ],
+  "developerId" : "c312dd57-2f9c-4e5a-a750-e0c94cf3c4a2",
+  "lastModifiedAt" : 1518459781095,
+  "lastModifiedBy" : "user@email.com",
+  "name" : "developer-training-maven-deployment-apickli-app",
+  "scopes" : [ ],
+  "status" : "approved"
+}
+```
+
+2. Copy the Key and Secret from above into the `test/integration/test/app-keys.json` file.
+```json
+{
+  "name": "developer-training-maven-deployment-apickli-app",
+  "credentials": [
+    {
+      "consumerKey": "YOUR KEY HERE",
+      "consumerSecret":"YOUR SECRET HERE",
+      "apiProducts": [
+        {"apiproduct": "developer-training-maven-deployment-apickli-product"}
+      ]
+    }
+  ]
+}
+```
+
+### Delete existing config
+TODO - There is a bug in this command, need to resolve it.
+
+```
+mvn install -Ptest -Dusername=$ae_username -Dpassword=$ae_password \
+                    -Dorg=$ae_org -Dapigee.config.options=delete -Doptions=clean
+```
+
+### Execute Apickli Tests only
+
+#### Integration Tests
+Execute the following commands from the `apigee-maven-deployment-proxy-apickli` folder.
+
+**If you make any changes to the Apickli test files the run mvn clean**
+```
+mvn clean
+```
+
+Execute the Integration tests directly:
+```
+ mvn exec:exec -Dexec.executable="./node_modules/cucumber/bin/cucumber.js" -Dexec.args=" target/test/integration/test" -Ptest -Dusername=$ae_username -Dpassword=$ae_password -Dorg=$ae_org
+```
+
+```
+./node_modules/cucumber/bin/cucumber.js test/integration/test/ --format json:target/report-test.json
+```

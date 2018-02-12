@@ -4,7 +4,7 @@
         "test": {
           "targetServers": [
               {
-                "name" : "edge-developer-training-httpbin",
+                "name" : "edge-developer-training-httpbin-apickli",
                 "host" : "httpbin.org",
                 "isEnabled" : true,
                 "port" : 443,
@@ -21,7 +21,7 @@
         "prod": {
           "targetServers": [
             {
-              "name" : "edge-developer-training-httpbin",
+              "name" : "edge-developer-training-httpbin-apickli",
               "host" : "httpbin.org",
               "isEnabled" : true,
               "port" : 443,
@@ -39,7 +39,7 @@
     "orgConfig": {
         "apiProducts": [
             {
-                "name": "developer-training-maven-deployment-product",
+                "name": "developer-training-maven-deployment-apickli-product",
                 "apiResources": [
                     "/"
                 ],
@@ -50,14 +50,14 @@
                         "value": "Developer training maven deployment sample"
                     }
                 ],
-                "description": "Developer training maven deployment product",
-                "displayName": "developer-training-maven-deployment-product",
+                "description": "Apickli Developer training maven deployment product",
+                "displayName": "developer-training-maven-deployment-apickli-product",
                 "environments": [
                     "test",
                     "prod"
                 ],
                 "proxies": [
-                    "dev-training-maven-deployment"
+                    "dev-training-maven-deployment-apickli"
                 ],
                 "quota": "10000",
                 "quotaInterval": "1",
@@ -67,18 +67,18 @@
         ],
         "developers": [
             {
-                "email": "developertraining@example.com",
+                "email": "developertrainingapickli@example.com",
                 "firstName": "Developer",
                 "lastName": "Training",
-                "userName": "developertraining@example.com",
+                "userName": "developertrainingapickli@example.com",
                 "attributes": []
             }
         ],
         "developerApps": {
             "developertraining@example.com": [
                 {
-                    "name": "developer-training-maven-deployment-app",
-                    "apiProducts": [ "developer-training-maven-deployment-product" ],
+                    "name": "developer-training-maven-deployment-apickli-app",
+                    "apiProducts": [ "developer-training-maven-deployment-apickli-product" ],
                     "callbackUrl": "",
                     "scopes": []
                 }

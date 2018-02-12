@@ -1,0 +1,572 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Apigee Edge Developer Training Accelerated",
+		"_postman_id": "09c4a1bd-7fec-09ab-af9a-e5fb86d7f563",
+		"description": "This uses the dev-training-eatery proxy\ndev-training-oauth proxy in org test environment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "R1 - Pass Through",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R2 - /chefs 401 unauthorized",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "access a protected backend"
+			},
+			"response": []
+		},
+		{
+			"name": "R3 - /chefs",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "KVM and Basic Auth policy"
+			},
+			"response": []
+		},
+		{
+			"name": "R4 - /chefs encrypted kvm",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "encrypted KVM and Basic Auth policy\nProblem is the Authorization header is base64 encoded and still visible. \n\nData Masking to the rescue!"
+			},
+			"response": []
+		},
+		{
+			"name": "data mask for Authorization header",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{orgadmin}}",
+						"password": "{{orgpassword}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "https://api.enterprise.apigee.com/v1/o/{{org}}/apis/dev-training-eatery/maskconfigs\n",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<MaskDataConfiguration name=\"default\">\n  <Variables>\n\t<Variable>request.header.Authorization</Variable>\n  </Variables>\n</MaskDataConfiguration>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "remove data mask for Authorization header",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{orgadmin}}",
+						"password": "{{orgpassword}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "https://api.enterprise.apigee.com/v1/o/{{org}}/apis/dev-training-eatery/maskconfigs/default\n",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R5 - /chefs target server",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R6 - /stores ",
+			"request": {
+				"url": "http:/{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "This is a route rule example"
+			},
+			"response": []
+		},
+		{
+			"name": "R7 - /stores/id",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores/971d4e43-f0b0-11e7-862e-12c1e35638f0\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R8 - /stores/id",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores/971d4e43-f0b0-11e7-862e-12c1e35638f0\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R9 - /stores/id",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores/971d4e43-f0b0-11e7-862e-12c1e35638f0\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Uses lookup/populate cache policies"
+			},
+			"response": []
+		},
+		{
+			"name": "R10 - /chefs no api key",
+			"request": {
+				"url": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R10 - /chefs with apikey",
+			"request": {
+				"url": {
+					"raw": "http://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs?apikey={{chefsapp_apikey}}",
+					"protocol": "http",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-eatery",
+						"chefs"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{chefsapp_apikey}}\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "oauth - /client_credentials/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{client_id_app1}}",
+						"password": "{{client_secret_app1}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": {
+					"raw": "https://{{org}}-{{env}}.apigee.net/dev-training-oauth/v1/client_credentials/token?grant_type=client_credentials",
+					"protocol": "https",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-oauth",
+						"v1",
+						"client_credentials",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R11 - /stores - verify access token - no token",
+			"request": {
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R11 - /stores - verify access token",
+			"request": {
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 3U14pLpl7Mmrkj2w5cm2cDHkkRYK",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "oauthR3 - /password/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{client_id_app1}}",
+						"password": "{{client_secret_app1}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": {
+					"raw": "https://{{org}}-{{env}}.apigee.net/dev-training-oauth/v1/password/token?grant_type=password",
+					"protocol": "https",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-oauth",
+						"v1",
+						"password",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic ",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"jack\",\n\"password\":\"Password123\"}"
+				},
+				"description": "This request requires Apigee BaaS or some other user data store.  And the username should be\njack\npassword = Password123"
+			},
+			"response": []
+		},
+		{
+			"name": "R11 - /stores - verify access token copy",
+			"request": {
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer Dc1KvRfMzffzmlJQJK4dTkavlx4G",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "We can still access the same proxy with the password grant."
+			},
+			"response": []
+		},
+		{
+			"name": "oauthR4 - /password/token with custom attributes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{client_id_app1}}",
+						"password": "{{client_secret_app1}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": {
+					"raw": "https://{{org}}-{{env}}.apigee.net/dev-training-oauth/v1/password/token?grant_type=password",
+					"protocol": "https",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-oauth",
+						"v1",
+						"password",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"jack\",\n\"password\":\"Password123\"}"
+				},
+				"description": "This revision saves some of the attributes from BaaS into the access token"
+			},
+			"response": []
+		},
+		{
+			"name": "R11 - /stores - verify access token copy copy",
+			"request": {
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer Dc1KvRfMzffzmlJQJK4dTkavlx4G",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Now review the Apigee trace and look at all the flow variables that are set and notice the apigee_baas_token custom attribute on the token"
+			},
+			"response": []
+		},
+		{
+			"name": "R12 - /chefs",
+			"request": {
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Shared Flow security"
+			},
+			"response": []
+		},
+		{
+			"name": "R12 - /chefs with API Key",
+			"request": {
+				"url": {
+					"raw": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs?apikey={{chefsapp_apikey}}",
+					"protocol": "https",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-eatery",
+						"chefs"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{chefsapp_apikey}}\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Shared Flow security"
+			},
+			"response": []
+		},
+		{
+			"name": "R13 - /chefs  No API Key",
+			"request": {
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "This will be handled by a Fault Rule"
+			},
+			"response": []
+		},
+		{
+			"name": "R13 - /chefs  invalid apikey",
+			"request": {
+				"url": {
+					"raw": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/chefs?apikey=xyz",
+					"protocol": "https",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-eatery",
+						"chefs"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "xyz\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "This will be handled by a Generic Fault Rule."
+			},
+			"response": []
+		},
+		{
+			"name": "DevTrainingMavenDeploymentProxy - /get",
+			"request": {
+				"url": {
+					"raw": "https://{{org}}-{{env}}.apigee.net/dev-training-maven-deployment-apickli/v1/get?apikey={{apikey_apickli}}",
+					"protocol": "https",
+					"host": [
+						"{{org}}-{{env}}",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"dev-training-maven-deployment-apickli",
+						"v1",
+						"get"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey_apickli}}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Control-Request-Method",
+						"value": "PUT",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
