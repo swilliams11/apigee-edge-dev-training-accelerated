@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AssignMessage-InvalidApiKey">
+    <DisplayName>AssignMessage-InvalidApiKey</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>errorCode</Name>
+        <Value>401.01</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>message</Name>
+        <Value>Please include your API key on the request</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

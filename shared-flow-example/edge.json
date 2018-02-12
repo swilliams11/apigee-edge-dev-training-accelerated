@@ -1,0 +1,34 @@
+{
+    "version": "1.0",
+    "envConfig": {
+        "test": {
+          "targetServers": [
+
+          ],
+          "caches": [
+          ],
+          "kvms": [
+          ]
+        },
+        "prod": {
+          "targetServers": [
+
+          ],
+          "caches": [
+          ],
+          "kvms": [
+          ]
+        }
+    },
+    "orgConfig": {
+        "apiProducts": [
+
+        ],
+        "developers": [
+
+        ],
+        "developerApps": {
+          
+        }
+    }
+}

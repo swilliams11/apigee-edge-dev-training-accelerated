@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>JavaScript-SaveTimeStamp</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <Properties/>
+        <!--URL>http://httpbin.org</URL-->
+        <LoadBalancer>
+          <Server name="edge-developer-training-httpbin"/>
+        </LoadBalancer>
+    </HTTPTargetConnection>
+</TargetEndpoint>

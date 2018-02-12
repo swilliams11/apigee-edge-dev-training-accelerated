@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "name": "test",
+            "policies": [
+            ],
+            "proxies": [
+               {
+                   "name": "default.xml",
+                   "tokens": [
+                       {
+                           "xpath": "/ProxyEndpoint/HTTPProxyConnection/BasePath",
+                           "value": "/dev-training-maven-deployment/v1"
+                       }
+                   ]
+               }
+           ],
+            "targets": [
+            ]
+        },
+        {
+            "name": "prod",
+            "policies": [
+            ],
+            "proxies": [
+               {
+                   "name": "default.xml",
+                   "tokens": [
+                       {
+                           "xpath": "/ProxyEndpoint/HTTPProxyConnection/BasePath",
+                           "value": "//dev-training-maven-deployment/v1"
+                       }
+                   ]
+               }
+           ],
+            "targets": [
+            ]
+        }
+    ]
+}

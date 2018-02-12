@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>apigee-dev-training</groupId>
+	<artifactId>accelerated</artifactId>
+	<version>v1</version>
+	<name>dev-training-proxyendpoint-faulthandler-sharedflow</name>
+	<packaging>pom</packaging>
+	<!-- Test -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Plugin Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<org.slf4j.simpleLogger.defaultLogLevel>info</org.slf4j.simpleLogger.defaultLogLevel>
+		<project.root.dir>${basedir}</project.root.dir>
+		<target.root.dir>${basedir}/target</target.root.dir>
+		<deployment.suffix>${user.name}</deployment.suffix>
+		<commit></commit>
+		<branch>a local</branch>
+	</properties>
+
+	<!-- This is where you add the environment specific properties under various profile names -->
+	<!-- For apigee.options, refer to "Advanced Configuration Options" under https://github.com/apigee/apigee-deploy-maven-plugin#pom-xml-sample -->
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<apigee.profile>test</apigee.profile>
+				<apigee.env>test</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.apitype>sharedflow</apigee.apitype> <!-- This is only for Shared Flows. Not required for deploying proxy -->
+
+				<!--apigee.options>update</apigee.options-->
+				<apigee.options>${options}</apigee.options>
+				<apigee.revision>${revision}</apigee.revision> <!-- used while trying to update revision, use when option=update only -->
+				<apigee.tokenurl>${tokenurl}</apigee.tokenurl> <!-- optional: oauth -->
+				<apigee.mfatoken>${mfatoken}</apigee.mfatoken> <!-- optional: mfa -->
+				<apigee.authtype>${authtype}</apigee.authtype> <!-- optional: oauth|basic(default) -->
+				<apigee.bearer>${bearer}</apigee.bearer> <!-- optional: Bearer token override -->
+				<apigee.refresh>${refresh}</apigee.refresh> <!-- optional: Refresh token override -->
+				<apigee.clientid>${clientId}</apigee.clientid> <!-- optional: Oauth Client Id - Default is edgecli-->
+				<apigee.clientsecret>${clientSecret}</apigee.clientsecret> <!-- optional: Oauth Client Secret Default is edgeclisecret-->
+				<!--apigee.override.delay>10</apigee.override.delay-->
+				<!--apigee.delay>1000</apigee.delay-->
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<apigee.profile>prod</apigee.profile>
+				<apigee.env>prod</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.apitype>sharedflow</apigee.apitype> <!-- This is only for Shared Flows. Not required for deploying proxy -->
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>override</apigee.options>
+				<apigee.override.delay>5</apigee.override.delay>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>io.apigee.build-tools.enterprise4g</groupId>
+					<artifactId>apigee-edge-maven-plugin</artifactId>
+					<version>1.1.6</version>
+				</plugin>
+				<plugin>
+		          <groupId>com.apigee.edge.config</groupId>
+		          <artifactId>apigee-config-maven-plugin</artifactId>
+		          <version>1.2.1</version>
+		        </plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+              <groupId>com.cj.jshintmojo</groupId>
+              <artifactId>jshint-maven-plugin</artifactId>
+              <version>1.6.0</version>
+              <executions>
+                <execution>
+                  <id>jslint</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>lint</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <directories>
+                  <directory>sharedflowbundle/resources/jsc</directory>
+                </directories>
+                <reporter>jslint</reporter>
+              </configuration>
+            </plugin>
+				<plugin>
+	            <artifactId>maven-resources-plugin</artifactId>
+	                <version>2.6</version>
+	                <executions>
+	                    <execution>
+	                        <phase>package</phase>
+	                        <goals>
+	                            <goal>copy-resources</goal>
+	                        </goals>
+	                        <configuration>
+	                            <overwrite>true</overwrite>
+	                            <encoding>UTF-8</encoding>
+	                             <echo message="basedir parent : ${basedir}"/>
+	                            <outputDirectory>${basedir}/target</outputDirectory>
+	                            <resources>
+	                                <resource>
+	                                    <directory>${project.root.dir}</directory>
+	                                    <filtering>true</filtering>
+	                                     <includes>
+	                                       <include>sharedflowbundle/**</include>
+	                                     </includes>
+	                                </resource>
+	                            </resources>
+	                        </configuration>
+	                    </execution>
+	                </executions>
+	            </plugin>
+
+	            <plugin>
+	            	<groupId>io.apigee.build-tools.enterprise4g</groupId>
+	                <artifactId>apigee-edge-maven-plugin</artifactId>
+	                <version>1.1.6</version>
+	                <executions>
+	                    <execution>
+	                        <id>configure-bundle</id>
+	                        <phase>package</phase>
+	                        <goals>
+	                            <goal>configure</goal>
+	                        </goals>
+	                    </execution>
+	                    <execution>
+	                        <id>deploy-bundle</id>
+	                        <phase>install</phase>
+	                        <goals>
+	                            <goal>deploy</goal>
+	                        </goals>
+	                    </execution>
+	                </executions>
+	            </plugin>
+
+	            <plugin>
+	              <groupId>com.apigee.edge.config</groupId>
+	              <artifactId>apigee-config-maven-plugin</artifactId>
+	              <version>1.2.1</version>
+	              <executions>
+	                  <execution>
+	                      <id>create-config-cache</id>
+	                      <phase>verify</phase>
+	                      <goals>
+	                          <goal>caches</goal>
+	                      </goals>
+	                  </execution>
+	                  <execution>
+	                      <id>create-config-targetserver</id>
+	                      <phase>verify</phase>
+	                      <goals>
+	                          <goal>targetservers</goal>
+	                      </goals>
+	                  </execution>
+	                  <execution>
+	                      <id>create-config-apiproduct</id>
+	                      <phase>install</phase>
+	                      <goals>
+	                          <goal>apiproducts</goal>
+	                      </goals>
+	                  </execution>
+	                  <execution>
+	                      <id>create-config-developer</id>
+	                      <phase>install</phase>
+	                      <goals>
+	                          <goal>developers</goal>
+	                      </goals>
+	                  </execution>
+	                  <execution>
+	                      <id>create-config-app</id>
+	                      <phase>install</phase>
+	                      <goals>
+	                          <goal>apps</goal>
+	                      </goals>
+	                  </execution>
+	              </executions>
+	          </plugin>
+		</plugins>
+	</build>
+
+</project>

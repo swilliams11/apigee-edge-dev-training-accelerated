@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlowBundle revision="1" name="proxyendpoint-fault-handler">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1518409999351</CreatedAt>
+    <CreatedBy></CreatedBy>
+    <Description>undefined</Description>
+    <DisplayName>proxyendpoint-fault-handler</DisplayName>
+    <LastModifiedAt>1518410131536</LastModifiedAt>
+    <LastModifiedBy></LastModifiedBy>
+    <Policies>
+        <Policy>AssignMessage-InvalidApiKey</Policy>
+    </Policies>
+    <Resources/>
+    <Spec></Spec>
+    <subType>SharedFlow</subType>
+    <validate>false</validate>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+</SharedFlowBundle>

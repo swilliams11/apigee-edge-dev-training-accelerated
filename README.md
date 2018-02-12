@@ -1,9 +1,12 @@
 # apigee-edge-dev-training-accelerated
 
 # Prereqs
-* Postman (My Postman Collection is named Apigee Edge Developer Training S*)
+* Postman (My Postman Collection is named Apigee Edge Developer Training Accelerated)
+* Postman environment named Apigee-Dev-Training-Accelerated
 * Apigee Edge Account
 * Apigee BaaS (hopefully you have one, because we don't issue these anymore!)
+* > Java 8
+* Maven 3.x
 
 
 
@@ -150,9 +153,80 @@ Send the R13 /chefs - invalid api key request from Postman. This will be caught 
 
 
 # Maven Deployment
+This demos how to deploy an proxy with Apigee Maven Plugin.
+* Review the folder structure of an Apigee proxy
+* Review the POM file.
+* Review the config.json file
+
+## Helpful to Know
+You don't have to review these links, since I list all the commands to deploy the proxy.  But if you are interested in learning more about the config and deploy plugins, then you should read them.
+* [apigee-config-maven-plugin](https://github.com/apigee/apigee-config-maven-plugin)
+* [apigee-maven-deploy-plugin](https://github.com/apigee/apigee-deploy-maven-plugin)
+* https://community.apigee.com/articles/26716/api-proxy-team-development-with-maven.html
+
+## export the following variables on your shell
+```
+export ae_password=apigeepassword
+export ae_username=apigeeusername
+export ae_org=apigeeorg
+```
 
 ## Deploy a proxy with config and products developers and developer apps
 
+```
+cd /apigee-edge-dev-training-accelerated/apigee-maven-deployment-proxy
+```
+
+Create all the apps, products, developers, etc. and deploy the proxy.
+```
+mvn install -Ptest -Dusername=$ae_username -Dpassword=$ae_password \
+                    -Dorg=$ae_org -Dapigee.config.options=create \
+                    -Doptions=update
+```
+
+Review the following:
+* the proxy was created in Apigee Edge
+* the base path has /v1 now with due to the config.json
+* the target server was created
+* the developer was created
+* the API product was created
+* the developer App was created (includes developer product)
+
+#### Deploy only, do not create create any configurations
+This will deploy the proxy as a new revision. It will not create any products, developers apps etc.
+```
+mvn install -Ptest -Dusername=$ae_username -Dpassword=$ae_password \
+                    -Dorg=$ae_org -Doptions=validate
+```
+
+* Show that the proxy was deployed as a new revision.
+
+
 ## Deploy a shared flow
+This section shows how to deploy a shared flow.  
+
+Review the following:
+* shared flow directory structure
+* POM file
+  * this pom file includes the apitype
+  <apigee.apitype>sharedflow</apigee.apitype>
+  * uses the sharedflowbundle directory instead
+* shared flows can also use config.json and edge.json files as well.
+
+
+```
+cd /apigee-edge-dev-training-accelerated/apigee-maven-deployment-proxy
+```
+
+Create all the apps, products, developers, etc. and deploy the proxy.
+```
+mvn install -Ptest -Dusername=$ae_username -Dpassword=$ae_password \
+                    -Dorg=$ae_org -Dapigee.config.options=create \
+                    -Doptions=validate
+```
+
+Review the following:
+* shared flow was deployed to the appropriate environment
+
 
 ## Apickli testing???
