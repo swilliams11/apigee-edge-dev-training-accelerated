@@ -133,7 +133,7 @@
 		{
 			"name": "R6 - /stores ",
 			"request": {
-				"url": "http:/{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
+				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -426,7 +426,7 @@
 			"response": []
 		},
 		{
-			"name": "R11 - /stores - verify access token copy copy",
+			"name": "R11 - /stores - verify access token - custom attribute",
 			"request": {
 				"url": "https://{{org}}-{{env}}.apigee.net/dev-training-eatery/stores\n",
 				"method": "GET",
