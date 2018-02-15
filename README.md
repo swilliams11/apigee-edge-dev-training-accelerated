@@ -5,9 +5,10 @@
 * Postman environment named Apigee-Dev-Training-Accelerated
 * Apigee Edge Account
 * Apigee BaaS (hopefully you have one, because we don't issue these anymore!)
-* > Java 8
+* >= Java 8
 * Maven 3.x
-* Node.js
+* Node.js/NPM
+* Open SSL
 
 # Summary
 This repo contains:
@@ -1105,3 +1106,36 @@ Execute the Integration tests directly:
 ```
 ./node_modules/cucumber/bin/cucumber.js test/integration/test/ --format json:target/report-test.json
 ```
+
+
+# Edgemicro
+
+## Prereqs
+* Admin rights of your machine
+* OpenSSL
+* Node.js/NPM
+
+## Windows
+If you are a windows user, then you may run into issues trying to start Edgemicro on your local machine.  
+
+Some are alternatives are:
+* Create a GCP Linux VM, SSH into the machine and experiment with EM there.
+* Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads) on your machine and then install [Ubuntu](https://www.ubuntu.com/download/desktop)
+
+
+# Drupal Developer Portal
+
+1. Administration > Configuration > DevConnect
+configure which org the dev portal is connected to.
+http://dev-org.devportal.apigee.io/admin/config/devconnect
+
+2. Administration > configurations
+http://dev-org.devportal.apigee.io/admin/config/devconnect
+Dev Portal section. Can configure app and developer portal custom attributes.
+
+3. Change the default logo
+Appearance > Settings > Add minimal
+
+4. Change the theme
+Appearance > Settings > then click "list tab"
+Select from a number of themes.
